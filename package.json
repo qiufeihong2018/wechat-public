@@ -1,0 +1,29 @@
+{
+  "name": "wechat",
+  "version": "1.0.0",
+  "description": "wechat-public",
+  "main": "app.js",
+  "dependencies": {
+    "bluebird": "^3.5.5",
+    "commitizen": "^3.1.1",
+    "koa": "^2.7.0",
+    "path": "^0.12.7",
+    "raw-body": "^2.4.0",
+    "sha1": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node  --harmony app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qiufeihong2018/wechat-public.git"
+  },
+  "author": "qiufeihong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qiufeihong2018/wechat-public/issues"
+  },
+  "homepage": "https://github.com/qiufeihong2018/wechat-public#readme"
+}
