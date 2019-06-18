@@ -8,7 +8,7 @@ var Wechat = require('./wechat')
 // 校验
 module.exports = function (config) {
 
-    var wechat = new Wechat(config)
+    // var wechat = new Wechat(config)
 
     return function* (next) {
         console.log(this.query)
@@ -29,7 +29,8 @@ module.exports = function (config) {
             } else {
                 this.body = 'check error'
             }
-        } else if (this.method === 'POST') {
+        } 
+        else if (this.method === 'POST') {
             if (sha !== signature) {
                 this.body = 'check error'
                 return false
@@ -40,6 +41,8 @@ module.exports = function (config) {
                 encoding: this.charset
             })
             console.log('data', data.toString())
+            var content = yield util.
         }
     }
+
 }

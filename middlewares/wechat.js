@@ -71,4 +71,4 @@ Wechat.prototype.updateAccessToken = function (data) {
 
 }
 
-module.exports = Wechat()
+module.exports = Wechat
