@@ -55,12 +55,13 @@ Wechat.prototype.updateAccessToken = function () {
     var appSecret = this.appSecret
     // 请求微信access_token的url地址
     var url = api.access_token + '&appid=' + appID + '&secret=' + appSecret
+
     return new Promise(function (resolve, reject) {
         request({
             url: url,
             json: true
         }).then(function (res) {
-            var data = res[1]
+            var data = res.body
             var now = (new Date().getTime())
             var expires_in = now + (data.expires_in - 20) * 1000
             data.expires_in = expires_in
