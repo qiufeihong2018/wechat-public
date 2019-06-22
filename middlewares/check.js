@@ -2,6 +2,7 @@
 var sha1 = require('sha1')
 var getRawBody = require('raw-body')
 var Wechat = require('./wechat')
+var util = require('./util')
 module.exports = function (config) {
     var wechat = new Wechat(config)
 
@@ -31,7 +32,8 @@ module.exports = function (config) {
                 limit: '1mb',
                 encoding: this.charset
             })
-            console.log(data.toString())
+            var content = yield util.parseXMLAsync(data)
+            console.log(content)
         }
     }
 }
