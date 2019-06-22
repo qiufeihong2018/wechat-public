@@ -33,7 +33,10 @@ module.exports = function (config) {
                 encoding: this.charset
             })
             var content = yield util.parseXMLAsync(data)
-            console.log(content)
+
+            var message=util.formatMessage(content.xml)
+
+            console.log(message)
         }
     }
 }
