@@ -4,7 +4,7 @@ var getRawBody = require('raw-body')
 var Wechat = require('./wechat')
 var util = require('./util')
 module.exports = function (config) {
-    var wechat = new Wechat(config)
+    // var wechat = new Wechat(config)
 
     return function* (next) {
         let token = config.token
