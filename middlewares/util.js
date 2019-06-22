@@ -31,7 +31,7 @@ function formatMessage(result) {
                 if (typeof val === 'object') {
                     message[key] = formatMessage(val)
                 } else {
-                    message[key] = (val || '').trim
+                    message[key] = (val || '').trim()
                 }
             } else {
                 message[key] = []
@@ -41,5 +41,6 @@ function formatMessage(result) {
             }
         }
     }
+    return message
 }
 exports.formatMessage = formatMessage
