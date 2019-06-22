@@ -7,6 +7,7 @@ module.exports = function (config) {
     // var wechat = new Wechat(config)
 
     return function* (next) {
+        var that = this
         let token = config.token
         let timestamp = this.query.timestamp
         let nonce = this.query.nonce
@@ -37,6 +38,8 @@ module.exports = function (config) {
             var message = util.formatMessage(content.xml)
 
             console.log(message)
+
+            // 自动回复
             if (message.MsgType === 'event') {
                 if (message.Event === 'subscribe') {
                     var now = new Date().getTime()
@@ -49,6 +52,7 @@ module.exports = function (config) {
                         '<MsgType><![CDATA[text]]></MsgType>' +
                         '<Content><![CDATA[欢迎您来到飞鸿的公众号]]></Content>' +
                         '</xml>'
+                    return
                 }
             }
         }
