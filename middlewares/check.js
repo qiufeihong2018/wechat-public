@@ -37,6 +37,20 @@ module.exports = function (config) {
             var message = util.formatMessage(content.xml)
 
             console.log(message)
+            if (message.MsgType === 'event') {
+                if (message.Event === 'subscribe') {
+                    var now = new Date().getTime()
+                    that.status = 200
+                    that.type = 'application/xml'
+                    that.body = '<xml>' +
+                        '<ToUserName><![CDATA[' + message.FromUserName + ']]></ToUserName>' +
+                        '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
+                        '<CreateTime>' + now + '</CreateTime>' +
+                        '<MsgType><![CDATA[text]]></MsgType>' +
+                        '<Content><![CDATA[欢迎您来到飞鸿的公众号]]></Content>' +
+                        '</xml>'
+                }
+            }
         }
     }
 }
