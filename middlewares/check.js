@@ -6,7 +6,6 @@ module.exports = function (config) {
     var wechat = new Wechat(config)
 
     return function* (next) {
-        console.log(this.query)
         let token = config.token
         let timestamp = this.query.timestamp
         let nonce = this.query.nonce
@@ -15,7 +14,6 @@ module.exports = function (config) {
         let echostr = this.query.echostr
         let str = [token, timestamp, nonce].sort().join('')
         let sha = sha1(str)
-        console.log(sha)
 
         if (this.method === 'GET') {
             if (sha === signature) {
