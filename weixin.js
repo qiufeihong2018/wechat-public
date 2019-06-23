@@ -1,5 +1,8 @@
 'use strict'
+var config = require('./config')
+var Wechat = require('./middlewares/wechat')
 
+var wechatApi=new Wechat(config.wechat)
 // 中间件中处理回复
 exports.reply = function* (next) {
     var message = this.weixin
@@ -68,7 +71,13 @@ exports.reply = function* (next) {
                 picUrl: 'https://user-gold-cdn.xitu.io/2019/3/19/16995c12657064e9?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1',
                 url: 'https://juejin.im/user/5bf4d63cf265da61561ee241/posts'
             }]
-        } 
+        } else if (content === '14') {
+            var data = yield wechatApi.uploadMaterial('image', __dirname + '/7.jpg')
+            reply = {
+                type: 'image',
+                mediaId: data.media_id
+            }
+        }
         this.body = reply
 
     }
