@@ -46,7 +46,7 @@ function formatMessage(result) {
 exports.formatMessage = formatMessage
 
 // 模板
-function tpl(content, message) {
+exports.tpl = function (content, message) {
     var info = {}
     var type = 'text'
     var FromUserName = message.FromUserName
@@ -64,4 +64,3 @@ function tpl(content, message) {
         return tpl.compiled(info)
     }
 }
-exports.tpl = tpl
