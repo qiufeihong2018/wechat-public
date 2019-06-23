@@ -47,7 +47,26 @@ exports.reply = function* (next) {
             reply = '九九同心'
         } else if (content === '10') {
             reply = '十全十美'
-        }
+        } else if (content === '11') {
+            reply = [{
+                title: '我的github',
+                description: '欢迎来到飞鸿的github',
+                picUrl: 'https://avatars1.githubusercontent.com/u/36500514?s=460&v=4',
+                url: 'https://github.com/qiufeihong2018'
+            },{
+                title: '我的博客',
+                description: '我的心路历程',
+                picUrl: 'https://user-gold-cdn.xitu.io/2019/3/19/16995c12657064e9?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1',
+                url: 'http://www.qiufeihong.top/'
+            }]
+        } else if (content === '12') {
+            reply = [{
+                title: '我的掘金',
+                description: '欢迎来到飞鸿的掘金',
+                picUrl: 'https://user-gold-cdn.xitu.io/2019/3/19/16995c12657064e9?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1',
+                url: 'https://juejin.im/user/5bf4d63cf265da61561ee241/posts'
+            }]
+        } 
         this.body = reply
 
     }
