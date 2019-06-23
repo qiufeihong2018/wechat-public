@@ -40,7 +40,7 @@ module.exports = function (config, handler) {
 
             // 自动回复
             this.weixin = message
-            console.log(this.weixin)
+            console.log('this', this)
 
             // 控制器
             yield handler.call(this, next)
