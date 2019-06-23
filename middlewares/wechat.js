@@ -70,6 +70,7 @@ Wechat.prototype.reply = function () {
 
 // 新增素材
 Wechat.prototype.uploadMaterial = function (type, filepath) {
+    var that = this
     var form = {
         media: fs.createReadStream(filepath)
     }
