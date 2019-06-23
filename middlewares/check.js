@@ -4,7 +4,7 @@ var getRawBody = require('raw-body')
 var Wechat = require('./wechat')
 var util = require('./util')
 module.exports = function (config) {
-    // var wechat = new Wechat(config)
+    var wechat = new Wechat(config)
 
     return function* (next) {
         var that = this
@@ -40,21 +40,12 @@ module.exports = function (config) {
             console.log(message)
 
             // 自动回复
-            if (message.MsgType === 'event') {
-                if (message.Event === 'subscribe') {
-                    var now = new Date().getTime()
-                    that.status = 200
-                    that.type = 'application/xml'
-                    that.body = '<xml>' +
-                        '<ToUserName><![CDATA[' + message.FromUserName + ']]></ToUserName>' +
-                        '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
-                        '<CreateTime>' + now + '</CreateTime>' +
-                        '<MsgType><![CDATA[text]]></MsgType>' +
-                        '<Content><![CDATA[欢迎您来到飞鸿的公众号]]></Content>' +
-                        '</xml>'
-                    return
-                }
-            }
+            this.weixin = message
+
+            // 控制器
+            yield handler.call(this, next)
+
+            wechat.reply.call(this)
         }
     }
 }
