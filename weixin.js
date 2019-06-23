@@ -7,9 +7,10 @@ exports.reply = function* (next) {
             if (message.EventKey) {
                 console.log('扫二维码进来：' + message.EventKey + ' ' + message.ticket)
             }
+            console.log('订阅')
             this.body = '哈哈，您订阅了飞鸿的公众号\r\n' + '消息ID:' + message.MsgId
         } else if (message.Event === 'unsubscribe') {
-            console.log('不要我了吗')
+            console.log('无情取关')
             this.body = ''
         }
     } else {
