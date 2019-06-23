@@ -45,22 +45,35 @@ function formatMessage(result) {
 }
 exports.formatMessage = formatMessage
 
-// 模板
-exports.tpl = function (content, message) {
-    var info = {}
+
+exports.tpl = function(content, message) {
+    //对「var tpl = require('./tpl')」进行一步的封装
+    //明确content和message的内容
+  
+    var info = {} //字典
     var type = 'text'
-    var FromUserName = message.FromUserName
-    var ToUserName = message.ToUserName
-
+    //message里拿到User
+    var fromUserName = message.FromUserName
+    var toUserName = message.ToUserName
+  
     if (Array.isArray(content)) {
-        type = 'news'
-        type = content.type || type
-        info.content = content
-        info.createTime = new Date().getTime()
-
-        info.ToUserName = FromUserName
-        info.FromUserName = ToUserName
-
-        return tpl.compiled(info)
+      type = 'news'
     }
-}
+  
+    if (!content) {
+      content = 'Empty news'
+    }
+    //判断消息的类型「content.type」，默认是「text」
+    type = content.type || type
+    info.content = content
+    info.createTime = new Date().getTime()
+    info.msgType = type
+    info.toUserName = fromUserName
+    info.fromUserName = toUserName
+    //将所有输入放入info中，进入「var tpl = require('./tpl')」的compiled方法中，进行编译。
+    return tpl.compiled(info)
+  }
+  
+  
+  
+  
