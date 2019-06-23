@@ -69,7 +69,7 @@ Wechat.prototype.reply = function () {
 }
 
 // 新增素材
-Wechat.prototype.uploadMaterial = function () {
+Wechat.prototype.uploadMaterial = function (type, filepath) {
     var form = {
         media: fs.createReadStream(filepath)
     }
