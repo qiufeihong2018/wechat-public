@@ -58,5 +58,5 @@ var tpl = heredoc(function () {
 
 var compiled = ejs.compile(tpl)
 exports = module.exports = {
-  compiled
+  compiled: compiled
 }
