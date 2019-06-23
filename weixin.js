@@ -1,11 +1,13 @@
 'use strict'
 
-// 自动回复
+// 中间件中处理回复
 exports.reply = function* (next) {
     var message = this.weixin
 
     if (message.MsgType === 'event') {
+        this.body = '哈哈，您订阅了飞鸿的公众号'
         if (message.Event === 'subscribe') {
+            // 通过扫描二维码进来
             if (message.EventKey) {
                 console.log('扫二维码进来：' + message.EventKey + ' ' + message.ticket)
             }
@@ -18,5 +20,6 @@ exports.reply = function* (next) {
     } else {
 
     }
+
     yield next
 }
