@@ -37,10 +37,10 @@ module.exports = function (config, handler) {
 
             var message = util.formatMessage(content.xml)
 
+            console.log('message', message)
 
             // 自动回复
             this.weixin = message
-            console.log('this', this)
 
             // 控制器
             yield handler.call(this, next)
