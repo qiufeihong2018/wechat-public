@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "bluebird": "^3.5.5",
+    "cz-conventional-changelog": "^2.1.0",
     "ejs": "^2.6.2",
     "heredoc": "^1.3.1",
     "raw-body": "^2.4.0",
@@ -30,5 +31,10 @@
   "bugs": {
     "url": "https://github.com/qiufeihong2018/wechat-public/issues"
   },
-  "homepage": "https://github.com/qiufeihong2018/wechat-public#readme"
+  "homepage": "https://github.com/qiufeihong2018/wechat-public#readme",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
