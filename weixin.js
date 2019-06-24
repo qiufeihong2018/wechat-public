@@ -2,7 +2,7 @@
 var config = require('./config')
 var Wechat = require('./middlewares/wechat')
 
-var wechatApi=new Wechat(config.wechat)
+var wechatApi = new Wechat(config.wechat)
 // 中间件中处理回复
 exports.reply = function* (next) {
     var message = this.weixin
@@ -73,6 +73,7 @@ exports.reply = function* (next) {
             }]
         } else if (content === '14') {
             var data = yield wechatApi.uploadMaterial('image', __dirname + '/7.jpg')
+            console.log('data', data)
             reply = {
                 type: 'image',
                 mediaId: data.media_id
