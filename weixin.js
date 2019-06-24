@@ -72,7 +72,7 @@ exports.reply = function* (next) {
                 url: 'https://juejin.im/user/5bf4d63cf265da61561ee241/posts'
             }]
         } else if (content === '14') {
-            var data = yield wechatApi.uploadMaterial('image', __dirname + '/7.jpg')
+            var data = yield wechatApi.uploadMaterial('image', `${__dirname}/7.jpg`)
             console.log('data', data)
             reply = {
                 type: 'image',
