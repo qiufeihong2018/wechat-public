@@ -7,7 +7,7 @@ var fs = require('fs')
 var prefix = 'https://api.weixin.qq.com/cgi-bin/'
 var api = {
     access_token: `${prefix}token?grant_type=client_credential`,
-    upload: `${prefix}media/upload`
+    upload: `${prefix}media/upload?`
 }
 
 // 获得票据
