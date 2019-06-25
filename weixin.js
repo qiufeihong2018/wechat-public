@@ -67,7 +67,7 @@ exports.reply = function* (next) {
                     description: 'video',
                     mediaId: data.media_id
                 }
-            }, 10000)
+            }, 120000)
         } else if (content === '6') {} else if (content === '7') {} else if (content === '8') {} else if (content === '9') {} else if (content === '10') {} else if (content === '11') {} else if (content === '12') {} else if (content === '13') {} else if (content === '14') {}
         this.body = reply
 
