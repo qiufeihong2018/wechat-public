@@ -52,17 +52,16 @@ exports.reply = function* (next) {
                 url: 'https://juejin.im/user/5bf4d63cf265da61561ee241/posts'
             }]
         } else if (content === '4') {
-            var data = yield wechatApi.uploadMaterial('image', `${__dirname}/7.jpg`)
+            var data = yield wechatApi.uploadMaterial('image', `${__dirname}/4.jpg`)
             reply = {
                 type: 'image',
                 mediaId: data.media_id
             }
         } else if (content === '5') {
-            var data = yield wechatApi.uploadMaterial('video', `${__dirname}/8.mp4`)
+            var data = yield wechatApi.uploadMaterial('video', `${__dirname}/5.mp4`)
+            console.log('data', data)            
             reply = {
                 type: 'video',
-                title: '视频',
-                description: '例子',
                 mediaId: data.media_id
             }
         } else if (content === '6') {
