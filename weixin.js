@@ -59,23 +59,16 @@ exports.reply = function* (next) {
             }
         } else if (content === '5') {
             var data = yield wechatApi.uploadMaterial('video', `${__dirname}/5.mp4`)
-            console.log('data', data)      
-            reply = {
-                type: 'video',
-                title: 'video',
-                description: 'video',
-                media_id: data.media_id
-            }
-        } else if (content === '6') {
-        } else if (content === '7') {
-        } else if (content === '8') {
-        } else if (content === '9') {
-        } else if (content === '10') {
-        } else if (content === '11') {
-        } else if (content === '12') {
-        } else if (content === '13') {
-        } else if (content === '14') {
-        }
+            console.log('data', data)
+            setTimeout(function () {
+                reply = {
+                    type: 'video',
+                    title: 'video',
+                    description: 'video',
+                    mediaId: data.media_id
+                }
+            }, 10000)
+        } else if (content === '6') {} else if (content === '7') {} else if (content === '8') {} else if (content === '9') {} else if (content === '10') {} else if (content === '11') {} else if (content === '12') {} else if (content === '13') {} else if (content === '14') {}
         this.body = reply
 
     }
