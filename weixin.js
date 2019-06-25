@@ -68,7 +68,13 @@ exports.reply = function* (next) {
                     mediaId: data.media_id
                 }
             }, 120000)
-        } else if (content === '6') {} else if (content === '7') {} else if (content === '8') {} else if (content === '9') {} else if (content === '10') {} else if (content === '11') {} else if (content === '12') {} else if (content === '13') {} else if (content === '14') {}
+        } else if (content === '6') {
+            var data = yield wechatApi.uploadMaterial('voice', `${__dirname}/6.mp3`)
+            reply = {
+                type: 'voice',
+                mediaId: data.media_id
+            }
+        } else if (content === '7') {} else if (content === '8') {} else if (content === '9') {} else if (content === '10') {} else if (content === '11') {} else if (content === '12') {} else if (content === '13') {} else if (content === '14') {}
         this.body = reply
 
     }
