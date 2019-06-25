@@ -60,14 +60,12 @@ exports.reply = function* (next) {
         } else if (content === '5') {
             var data = yield wechatApi.uploadMaterial('video', `${__dirname}/5.mp4`)
             console.log('data', data)
-            setTimeout(function () {
                 reply = {
                     type: 'video',
                     title: 'video',
                     description: 'video',
                     mediaId: data.media_id
                 }
-            }, 120000)
         } else if (content === '6') {
             var data = yield wechatApi.uploadMaterial('voice', `${__dirname}/6.mp3`)
             reply = {
