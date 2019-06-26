@@ -9,7 +9,8 @@ var prefix = 'https://api.weixin.qq.com/cgi-bin/'
 var api = {
     access_token: `${prefix}token?grant_type=client_credential`,
     temporary: {
-        upload: `${prefix}media/upload?`
+        upload: `${prefix}media/upload?`,
+        get: `${prefix}media/get?`
     },
     permanent: {
         // 新增其他类型永久素材
@@ -17,7 +18,10 @@ var api = {
         // 新增永久图文素材
         uploadNews: `${prefix}material/add_news?`,
         // 上传图文消息内的图片获取URL
-        uploadNewsPic: `${prefix}media/uploadimg?`
+        uploadNewsPic: `${prefix}media/uploadimg?`,
+        get_material: `${prefix}material/get_material?`,
+        del_material: `${prefix}material/del_material?`,
+        update_news: `${prefix}material/update_news?`
     }
 }
 
@@ -122,6 +126,93 @@ Wechat.prototype.uploadMaterial = function (type, material, permanent) {
                 }
                 //上传结果显示
 
+                request(options).then(function (res) {
+                    console.log('res', res)
+                    var _data = res.body
+                    if (_data) {
+                        resolve(_data)
+                    } else {
+                        throw new Error('upload material failure')
+                    }
+                }).catch(function (err) {
+                    reject(err)
+                })
+            })
+    })
+}
+
+
+// 获取素材
+Wechat.prototype.getMaterial = function (mediaId, type, permanent) {
+    var that = this
+    var form = {}
+    var getUrl = api.temporary.get
+    if (permanent) {
+        getUrl = api.permanent.get_material
+    }
+
+    return new Promise(function (resolve, reject) {
+        that.fetchAccessToken()
+            .then(function (data) {
+                var url = `${getUrl}access_token=${data.access_token}&media_id=${media_id}`
+                if (!permanent && type === 'video') {
+                    url = url.replace('https://', 'http://')
+                }
+                resolve(url)
+            })
+    })
+}
+
+// 删除素材
+Wechat.prototype.delMaterial = function (mediaId) {
+    var that = this
+    var form = {
+        media_id: mediaId
+    }
+    return new Promise(function (resolve, reject) {
+        that.fetchAccessToken()
+            .then(function (data) {
+                var url = `${api.permanent.del_material}access_token=${data.access_token}&media_id=${media_id}`
+                //上传的参数，解析成json
+                var options = {
+                    method: 'POST',
+                    url: url,
+                    body: form,
+                    json: true
+                }
+                request(options).then(function (res) {
+                    console.log('res', res)
+                    var _data = res.body
+                    if (_data) {
+                        resolve(_data)
+                    } else {
+                        throw new Error('upload material failure')
+                    }
+                }).catch(function (err) {
+                    reject(err)
+                })
+            })
+    })
+}
+
+// 修改素材
+Wechat.prototype.updateMaterial = function (mediaId, news) {
+    var that = this
+    var form = {
+        media_id: mediaId
+    }
+    _.extend(form, news)
+    return new Promise(function (resolve, reject) {
+        that.fetchAccessToken()
+            .then(function (data) {
+                var url = `${api.permanent.update_news}access_token=${data.access_token}&media_id=${media_id}`
+                //上传的参数，解析成json
+                var options = {
+                    method: 'POST',
+                    url: url,
+                    body: form,
+                    json: true
+                }
                 request(options).then(function (res) {
                     console.log('res', res)
                     var _data = res.body
