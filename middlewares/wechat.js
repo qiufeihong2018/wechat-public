@@ -7,7 +7,17 @@ var fs = require('fs')
 var prefix = 'https://api.weixin.qq.com/cgi-bin/'
 var api = {
     access_token: `${prefix}token?grant_type=client_credential`,
-    upload: `${prefix}media/upload?`
+    temporary: {
+        upload: `${prefix}media/upload?`
+    },
+    permanent: {
+        // 新增其他类型永久素材
+        upload: `${prefix}material/add_material?`,
+        // 新增永久图文素材
+        uploadNews: `${prefix}material/add_news?`,
+        // 上传图文消息内的图片获取URL
+        uploadNewsPic: `${prefix}media/uploadimg?`
+    }
 }
 
 // 获得票据
@@ -69,20 +79,41 @@ Wechat.prototype.reply = function () {
 }
 
 // 新增素材
-Wechat.prototype.uploadMaterial = function (type, filepath) {
+Wechat.prototype.uploadMaterial = function (type, material, permanent) {
     var that = this
-    var form = {
-        media: fs.createReadStream(filepath)
+    var form = {}
+    var uploadUrl = api.temporary.upload
+    if (permanent) {
+        uploadUrl = api.permanent.upload
+        _.extend(form, permanent)
+    } else if (type === 'pic') {
+        uploadUrl = api.permanent.uploadNewsPic
+    } else if (type === 'news') {
+        uploadUrl = api.permanent.uploadNews
+        form = material
+    } else {
+        form.media = fs.createReadStream(material)
     }
-    var appID = this.appID
-    var appSecret = this.appSecret
-    // 请求微信access_token的url地址
-    var url = api.access_token + '&appid=' + appID + '&secret=' + appSecret
 
     return new Promise(function (resolve, reject) {
         that.fetchAccessToken()
             .then(function (data) {
-                var url = `${api.upload}access_token=${data.access_token}&type=${type}`
+                var url = `${uploadUrl}access_token=${data.access_token}&type=${type}`
+                if (!permanent) {
+                    url += `&type${type}`
+                } else {
+                    form.access_token = data.access_token
+                }
+                var options = {
+                    method: 'POST',
+                    url: url,
+                    json: true
+                }
+                if (type === 'news') {
+                    options.body = form
+                } else {
+                    options.formData = form
+                }
                 request({
                     method: 'POST',
                     url: url,
