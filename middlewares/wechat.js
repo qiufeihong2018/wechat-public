@@ -87,9 +87,13 @@ Wechat.prototype.uploadMaterial = function (type, material, permanent) {
     if (permanent) {
         uploadUrl = api.permanent.upload
         _.extend(form, permanent)
-    } else if (type === 'pic') {
+    }
+    if (type === 'pic') {
         uploadUrl = api.permanent.uploadNewsPic
-    } else if (type === 'news') {
+    }
+    if (type === 'news') {
+        //material是图文的时候，传入的是数组
+        //如果是图片或视频，则是路径
         uploadUrl = api.permanent.uploadNews
         form = material
     } else {
@@ -99,12 +103,13 @@ Wechat.prototype.uploadMaterial = function (type, material, permanent) {
     return new Promise(function (resolve, reject) {
         that.fetchAccessToken()
             .then(function (data) {
-                var url = `${uploadUrl}access_token=${data.access_token}&type=${type}`
+                var url = `${uploadUrl}access_token=${data.access_token}`
                 if (!permanent) {
                     url += `&type${type}`
                 } else {
                     form.access_token = data.access_token
                 }
+                //上传的参数，解析成json
                 var options = {
                     method: 'POST',
                     url: url,
@@ -115,12 +120,10 @@ Wechat.prototype.uploadMaterial = function (type, material, permanent) {
                 } else {
                     options.formData = form
                 }
-                request({
-                    method: 'POST',
-                    url: url,
-                    formData: form,
-                    json: true
-                }).then(function (res) {
+                //上传结果显示
+
+                request(options).then(function (res) {
+                    console.log('res', res)
                     var _data = res.body
                     if (_data) {
                         resolve(_data)
