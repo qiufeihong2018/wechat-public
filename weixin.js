@@ -72,7 +72,23 @@ exports.reply = function* (next) {
                 type: 'voice',
                 mediaId: data.media_id
             }
-        } else if (content === '7') {} else if (content === '8') {} else if (content === '9') {} else if (content === '10') {} else if (content === '11') {} else if (content === '12') {} else if (content === '13') {} else if (content === '14') {}
+        } else if (content === '7') {
+            var data = yield wechatApi.uploadMaterial('image', `${__dirname}/4.jpg`,{
+                type:'image'
+            })
+            reply = {
+                type: 'image',
+                mediaId: data.media_id
+            }
+        } else if (content === '8') {
+            var data = yield wechatApi.uploadMaterial('voice', `${__dirname}/6.mp3`,{
+                type:'voice'
+            })
+            reply = {
+                type: 'voice',
+                mediaId: data.media_id
+            }
+        } else if (content === '9') {} else if (content === '10') {} else if (content === '11') {} else if (content === '12') {} else if (content === '13') {} else if (content === '14') {}
         this.body = reply
 
     }
